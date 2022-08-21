@@ -1,3 +1,5 @@
+import 'package:education/constants.dart';
+import 'package:education/model/course.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,35 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Center(
-          child: Row(
-            children: [
-              Container(
-                width: 42.0,
-                  height: 42.0,
-                  padding: EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14.0),
-                    gradient: LinearGradient(colors: [
-                      Color(0xFF00AEFF),
-                      Color(0xFF0076FF,)
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight
-                    ),
-                  ),
-                  child: Icon(Icons.home,color: Colors.white,)
-              ),
-              SizedBox(width: 12,),
-              Container(
-                child: Text("Home", style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFF242629),
-                ),),
-              )
-            ],
+        body: SafeArea(
+          child: Container(
+            child: RecentCourseCard(course: recentCourses[0]),
           ),
         ),
       ),
@@ -47,3 +25,43 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class RecentCourseCard extends StatelessWidget {
+  RecentCourseCard({Key? key, required this.course}) : super(key: key);
+
+  Course course;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 240.0,
+      height: 240.0,
+      decoration: BoxDecoration(
+        gradient: course.background,
+        borderRadius: BorderRadius.circular(41.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 32.0,
+          left: 32.0,
+          right: 32.0,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              course.courseSubtitle,
+              style: kCardSubtitleStyle,
+            ),
+            SizedBox(
+              height: 6.0,
+            ),
+            Text(
+              course.courseTitle,
+              style: kCardTitleStyle,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
