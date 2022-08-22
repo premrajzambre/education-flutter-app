@@ -5,7 +5,10 @@ import '../constants.dart';
 class SidebarButton extends StatelessWidget {
   const SidebarButton({
     Key? key,
+    required this.triggerAnimation,
   }) : super(key: key);
+
+  final VoidCallback triggerAnimation;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,7 @@ class SidebarButton extends StatelessWidget {
           vertical: 14.0,
         ),
       ),
-      onPressed: () {},
+      onPressed: triggerAnimation,
     );
   }
 }
